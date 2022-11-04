@@ -88,7 +88,7 @@ class _MainScreenState extends State<MainScreen> {
                       padding: EdgeInsets.only(top: 15, bottom: 10),
                       width: width * 0.75,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
                         color: Colors.black,
                       ),
                       child: Row(
