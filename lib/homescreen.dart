@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,145 +39,132 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      //appBar: ,
-
-
-      body: CustomScrollView(
-        slivers: [
-
-          SliverAppBar(
-            centerTitle: true,
-            backgroundColor: Colors.black,
-            shape: ContinuousRectangleBorder(
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30.0))
-            ),
-            title: const Text(
-              "ReadAloud",
-              style: TextStyle(
-                fontFamily: 'Hubballi-Regular',
-                fontSize: 36.0,
-                color: Color.fromRGBO(255, 189, 66, 1),
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-
-            actions: [
-              IconButton(
-                //icon: const Icon(Icons.menu),
-                icon: const Icon(Icons.logout, size: 28.0, color: Color.fromRGBO(255, 189, 66, 1)),
-                tooltip: "Sign Out",
-                onPressed: () {
-                  AuthService().logOut();
-                },
-              ),
-            ],
-
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        title: const Text(
+          "ReadAloud",
+          style: TextStyle(
+            fontFamily: 'Hubballi-Regular',
+            fontSize: 28.0,
+            color: Color.fromRGBO(255, 189, 66, 1),
+            fontWeight: FontWeight.w400,
           ),
+        ),
 
-          SliverToBoxAdapter(
-          child: Container(
+        actions: [
+          IconButton(
+            //icon: const Icon(Icons.menu),
+            icon: const Icon(Icons.logout, size: 28.0, color: Color.fromRGBO(255, 189, 66, 1)),
+            tooltip: "Sign Out",
+            onPressed: () {
+              AuthService().logOut();
+            },
+          ),
+        ],
+      ),
+
+      body: Container(
               color: Colors.black,
               height: height,
               width: width,
               // margin: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: Stack(
+                //crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   if (textScanning) const CircularProgressIndicator(),
                   if (!textScanning && imageFile == null)
                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      margin: const EdgeInsets.symmetric(horizontal: 0),
                       width: width,
-                      height: height / 1.3,
+                      height: height / 1,
                       color: Colors.grey[300]!,
                       child: CameraApp(),
                     ),
                   if (imageFile != null) Image.file(File(imageFile!.path)),
-                  Container(
+                  Align(
                     alignment: Alignment.bottomCenter,
-                    margin: EdgeInsets.only(top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: const Color.fromRGBO(255, 189, 66, 1), primary: Colors.black,
-                            shadowColor: const Color.fromRGBO(255, 189, 66, 1),
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0)),
-                          ),
-                          onPressed: () {
-                            getImage(ImageSource.gallery);
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                Icon(
-                                  Icons.image,
-                                  size: 30,
-                                ),
-                                Text(
-                                  "Gallery",
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(255, 189, 66, 1)),
-                                )
-                              ],
+                    child: Container(
+                      padding: EdgeInsets.only(top: 15, bottom: 10),
+                      width: width * 0.75,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+                        color: Colors.black,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            child: Icon(Icons.insert_photo_outlined, color: Color.fromRGBO(255, 189, 66, 1), size: 30.0),
+                            style: ElevatedButton.styleFrom(
+                              elevation: 3,
+                              backgroundColor: Colors.black,
+                              padding: EdgeInsets.all(10),
+                              shadowColor: const Color.fromRGBO(255, 189, 66, 1),
+                              shape: CircleBorder(
+                                side: BorderSide(width: 1.8, color: Color.fromRGBO(255, 189, 66, 0.3)),
+                              ),
                             ),
+                            onPressed: () => getImage(ImageSource.gallery),
                           ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: const Color.fromRGBO(255, 189, 66, 1), primary: Colors.black,
-                            shadowColor: const Color.fromRGBO(255, 189, 66, 1),
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0)),
-                          ),
-                          onPressed: () {
-                            getImage(ImageSource.camera);
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                Icon(
-                                  Icons.camera_alt,
-                                  size: 30,
-                                ),
-                                Text(
-                                  "Camera",
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(255, 189, 66, 1)),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
 
-                  SingleChildScrollView(
-                    child: Text(
-                      scannedText,
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                          ElevatedButton(
+                            child: Transform.rotate(
+                                angle: pi/2,
+                                child: Icon(CupertinoIcons.chevron_left_2, color: Color.fromRGBO(255, 189, 66, 0.6), size: 23.0)
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(5),
+                              backgroundColor: Colors.black,
+                              shape: CircleBorder(
+                                side: BorderSide(width: 1.8, color: Colors.transparent),
+                              ),
+                            ),
+                            onPressed: () => showModalBottomSheet(
+                                context: context,
+                                builder: (context) => buildSheet()
+                            ),
+                          ),
+
+                          ElevatedButton(
+                            child: Icon(Icons.camera_outlined, color: Color.fromRGBO(255, 189, 66, 1), size: 30.0),
+                            style: ElevatedButton.styleFrom(
+                              elevation: 3,
+                              backgroundColor: Colors.black,
+                              padding: EdgeInsets.all(10),
+                              shadowColor: const Color.fromRGBO(255, 189, 66, 1),
+                              shape: CircleBorder(
+                                side: BorderSide(width: 1.8, color: Color.fromRGBO(255, 189, 66, 0.3)),
+                              ),
+                            ),
+                            onPressed: () => getImage(ImageSource.camera),
+                          ),
+
+
+                        ],
+                      ),
                     ),
                   ),
                 ],
-              )),
-        ),
-        ]
-      ),
-    );
+              )
+          ),
+        );
   }
+
+  // floating bottom modal
+  Widget buildSheet() => Container(
+    decoration: BoxDecoration(
+      color: Color.fromRGBO(20,20,20,1),
+    ),
+    child: SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(scannedText, style: const TextStyle(fontSize: 20, color: Colors.white)),
+        ],
+      ),
+    ),
+  );
 
   void getImage(ImageSource source) async {
     try {
