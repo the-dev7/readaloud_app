@@ -122,7 +122,11 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             onPressed: () => showModalBottomSheet(
                                 context: context,
-                                builder: (context) => buildSheet()
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+                                ),
+                                isScrollControlled: true,
+                                builder: (context) => buildSheet(),
                             ),
                           ),
 
@@ -153,9 +157,10 @@ class _MainScreenState extends State<MainScreen> {
 
   // floating bottom modal
   Widget buildSheet() => Container(
-    padding: EdgeInsets.all(20),
+    padding: EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
     decoration: BoxDecoration(
       color: Color.fromRGBO(20,20,20,1),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
     ),
     child: SingleChildScrollView(
       child: Column(
@@ -210,7 +215,13 @@ class _MainScreenState extends State<MainScreen> {
             ],
           ),
 
-          Text(scannedText, style: const TextStyle(fontSize: 20, color: Colors.white)),
+          SizedBox(height: 30.0),
+          Text("Captured Text", style: TextStyle(fontSize: 20.0, color: Color.fromRGBO(255, 190, 70, 1))),
+          SizedBox(height: 20.0),
+          if (scannedText != "")
+            Text(scannedText, textAlign: TextAlign.justify, style: TextStyle(fontSize: 20, color: Colors.white.withOpacity(0.6))),
+          if (scannedText == "")
+            Text("No text detected..", textAlign: TextAlign.justify, style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.4))),
         ],
       ),
     ),
