@@ -153,6 +153,7 @@ class _MainScreenState extends State<MainScreen> {
 
   // floating bottom modal
   Widget buildSheet() => Container(
+    padding: EdgeInsets.all(20),
     decoration: BoxDecoration(
       color: Color.fromRGBO(20,20,20,1),
     ),
@@ -160,6 +161,55 @@ class _MainScreenState extends State<MainScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                child: Icon(Icons.transcribe_outlined, color: Color.fromRGBO(255, 189, 66, 1), size: 30.0),
+                style: ElevatedButton.styleFrom(
+                  elevation: 3,
+                  backgroundColor: Colors.black,
+                  padding: EdgeInsets.all(15),
+                  shadowColor: const Color.fromRGBO(255, 189, 66, 1),
+                  shape: CircleBorder(
+                    side: BorderSide(width: 1.8, color: Color.fromRGBO(255, 189, 66, 0.3)),
+                  ),
+                ),
+                onPressed: () => {},
+              ),
+
+              ElevatedButton(
+                child: Icon(Icons.translate, color: Color.fromRGBO(255, 189, 66, 1), size: 30.0),
+                style: ElevatedButton.styleFrom(
+                  elevation: 3,
+                  backgroundColor: Colors.black,
+                  padding: EdgeInsets.all(15),
+                  shadowColor: const Color.fromRGBO(255, 189, 66, 1),
+                  shape: CircleBorder(
+                    side: BorderSide(width: 1.8, color: Color.fromRGBO(255, 189, 66, 0.3)),
+                  ),
+                ),
+                onPressed: () => {},
+              ),
+
+              ElevatedButton(
+                child: Icon(Icons.text_snippet_outlined, color: Color.fromRGBO(255, 189, 66, 1), size: 30.0),
+                style: ElevatedButton.styleFrom(
+                  elevation: 3,
+                  backgroundColor: Colors.black,
+                  padding: EdgeInsets.all(15),
+                  shadowColor: const Color.fromRGBO(255, 189, 66, 1),
+                  shape: CircleBorder(
+                    side: BorderSide(width: 1.8, color: Color.fromRGBO(255, 189, 66, 0.3)),
+                  ),
+                ),
+                onPressed: () => {},
+              ),
+
+            ],
+          ),
+
           Text(scannedText, style: const TextStyle(fontSize: 20, color: Colors.white)),
         ],
       ),
