@@ -221,7 +221,25 @@ class _MainScreenState extends State<MainScreen> {
           if (scannedText != "")
             Text(scannedText, textAlign: TextAlign.justify, style: TextStyle(fontSize: 20, color: Colors.white.withOpacity(0.6))),
           if (scannedText == "")
-            Text("No text detected..", textAlign: TextAlign.justify, style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.4))),
+            Text("No text detected..\n", textAlign: TextAlign.justify, style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.4))),
+
+          if (imageFile != null)
+            ElevatedButton(
+              child: Text("Close Image", style: TextStyle(color: Color.fromRGBO(255, 189, 66, 1), fontSize: 18.0)),
+              style: ElevatedButton.styleFrom(
+                elevation: 3,
+                backgroundColor: Colors.black,
+                padding: EdgeInsets.all(15),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
+                shadowColor: const Color.fromRGBO(255, 189, 66, 1),
+              ),
+              onPressed: () {
+                setState(() {
+                  imageFile = null;
+                });
+              },
+            ),
+
         ],
       ),
     ),
