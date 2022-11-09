@@ -51,6 +51,7 @@ dependencies:
   firebase_core_platform_interface: 4.5.1
 
   camera: ^0.10.0+4
+  flutter_tts: ^3.6.0
 
 dev_dependencies:
   flutter_test:

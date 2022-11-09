@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:readaloud_app/provider/sign_in.dart';
@@ -18,17 +19,64 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
+  FlutterTts flutterTts = FlutterTts();
+
   bool textScanning = false;
   XFile? imageFile;
   String scannedText = "";
 
+  bool isSpeaking = false;
+
+  void initializeTts()
+  {
+    flutterTts.setStartHandler(() {
+      setState(() {
+        isSpeaking = true;
+      });
+    });
+
+    flutterTts.setCompletionHandler(() {
+      setState(() {
+        isSpeaking = false;
+      });
+    });
+
+    flutterTts.setErrorHandler((message) {
+      setState(() {
+        isSpeaking = false;
+      });
+    });
+  }
+
+  void speak(String text) async
+  {
+    await flutterTts.setLanguage('en-US');
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setVolume(1.0);
+    await flutterTts.setPitch(1.0);
+    if (text != "")
+    {
+      await flutterTts.speak(text);
+    }
+  }
+
+  void stop() async
+  {
+    await flutterTts.stop();
+    setState(() {
+      isSpeaking = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    initializeTts();
   }
 
   @override
   void dispose() {
+    flutterTts.stop();
     super.dispose();
   }
 
@@ -171,7 +219,11 @@ class _MainScreenState extends State<MainScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ElevatedButton(
-                child: Icon(Icons.transcribe_outlined, color: Color.fromRGBO(255, 189, 66, 1), size: 30.0),
+                child: Icon(
+                    Icons.transcribe_outlined,
+                    color: Color.fromRGBO(255, 189, 66, 1),
+                    size: 30.0
+                ),
                 style: ElevatedButton.styleFrom(
                   elevation: 3,
                   backgroundColor: Colors.black,
@@ -181,7 +233,9 @@ class _MainScreenState extends State<MainScreen> {
                     side: BorderSide(width: 1.8, color: Color.fromRGBO(255, 189, 66, 0.3)),
                   ),
                 ),
-                onPressed: () => {},
+                onPressed: () {
+                  isSpeaking ? stop() : speak(scannedText);
+                },
               ),
 
               ElevatedButton(
@@ -219,7 +273,22 @@ class _MainScreenState extends State<MainScreen> {
           Text("Captured Text", style: TextStyle(fontSize: 20.0, color: Color.fromRGBO(255, 190, 70, 1))),
           SizedBox(height: 20.0),
           if (scannedText != "")
-            Text(scannedText, textAlign: TextAlign.justify, style: TextStyle(fontSize: 20, color: Colors.white.withOpacity(0.6))),
+            Container(
+              height: 200,
+              child: ListView(
+              children: [
+                SelectableText(
+                    scannedText,
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(fontSize: 20, color: Colors.white.withOpacity(0.6)),
+                    showCursor: true,
+                    cursorColor: Colors.grey[200],
+                    cursorRadius: Radius.circular(5),
+                    scrollPhysics: ClampingScrollPhysics(),
+                  ),
+                ],
+              ),
+            ),
           if (scannedText == "")
             Text("No text detected..\n", textAlign: TextAlign.justify, style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.4))),
 
