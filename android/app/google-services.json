@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1077552820145",
+    "project_id": "readaloud-theapp",
+    "storage_bucket": "readaloud-theapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077552820145:android:11c83e39444b8f7c7dd790",
+        "android_client_info": {
+          "package_name": "com.teamreadaloud.readaloud_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077552820145-e7dqgtmjlatt8ukt8djrvb7njf0sm705.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamreadaloud.readaloud_app",
+            "certificate_hash": "ed2f98c60dd782118e3dc5e051f9376efa5da24e"
+          }
+        },
+        {
+          "client_id": "1077552820145-fb7nakh930mr3somkas3r2g6c0sgaucl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSK81mMUHsUAB9EOXLNmzVzOIYr5wJ0gc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077552820145-fb7nakh930mr3somkas3r2g6c0sgaucl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
