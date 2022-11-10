@@ -1,15 +1,11 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:readaloud_app/homescreen.dart';
 
-import 'homescreen.dart';
 import 'loading.dart';
 import 'login.dart';
 

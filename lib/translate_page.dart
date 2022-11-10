@@ -5,17 +5,13 @@ import 'DropDownButtonLang.dart';
 
 List<String> totalLangs = [
   "Arabic",
-  "Assamese",
   "Bengali",
   "Bulgarian",
-  "Chinese ",
   "Czech",
   "Dutch",
   "English",
   "Esperanto",
-  "Filipino",
   "French",
-  "Georgian",
   "German",
   "Greek",
   "Gujarati",
@@ -32,12 +28,10 @@ List<String> totalLangs = [
   "Marathi",
   "Myanmar",
   "Nepali",
-  "Odia",
   "Persian",
   "Polish",
   "Punjabi",
   "Russian",
-  "Sanskrit",
   "Sindhi",
   "Spanish",
   "Swedish",
@@ -54,17 +48,13 @@ List<String> totalLangs = [
 
 var langMap = {
   "Arabic": "ar",
-  "Assamese": "as",
   "Bengali": "bn",
   "Bulgarian": "bg",
-  "Chinese ": "zh-CN",
   "Czech": "cs",
   "Dutch": "nl",
   "English": "en",
   "Esperanto": "eo",
-  "Filipino": "fil",
   "French": "fr",
-  "Georgian": "",
   "German": "ka",
   "Greek": "el",
   "Gujarati": "gu",
@@ -81,12 +71,10 @@ var langMap = {
   "Marathi": "mr",
   "Myanmar": "my",
   "Nepali": "ne",
-  "Odia": "or",
   "Persian": "fa",
   "Polish": "pl",
   "Punjabi": "pa",
   "Russian": "ru",
-  "Sanskrit": "sa",
   "Sindhi": "sd",
   "Spanish": "es",
   "Swedish": "sv",
@@ -139,42 +127,44 @@ class _TranslatePageState extends State<TranslatePage> {
         color: Colors.black,
         height: height,
         width: width,
-        child: Column(
-          children: [
-            const SizedBox(height: 30.0),
-            const Text("Captured Text",
-                style: TextStyle(
-                    fontSize: 20.0, color: Color.fromRGBO(255, 190, 70, 1))),
-            // const SizedBox(height: 20.0),
-            if (widget.scannedText != "")
-              Container(
-                height: 100,
-                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                child: ListView(
-                  children: [
-                    SelectableText(
-                      widget.scannedText,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                          fontSize: 20, color: Colors.white.withOpacity(0.6)),
-                      showCursor: true,
-                      cursorColor: Colors.grey[200],
-                      cursorRadius: const Radius.circular(6),
-                      scrollPhysics: const ClampingScrollPhysics(),
-                    ),
-                  ],
-                ),
-              ),
-            if (widget.scannedText == "")
-              Text("No text detected..\n",
-                  textAlign: TextAlign.justify,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 30.0),
+              const Text("Captured Text",
                   style: TextStyle(
-                      fontSize: 18, color: Colors.white.withOpacity(0.4))),
+                      fontSize: 20.0, color: Color.fromRGBO(255, 190, 70, 1))),
+              // const SizedBox(height: 20.0),
+              if (widget.scannedText != "")
+                Container(
+                  height: 250,
+                  margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  child: ListView(
+                    children: [
+                      SelectableText(
+                        widget.scannedText,
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white.withOpacity(0.6)),
+                        showCursor: true,
+                        cursorColor: Colors.grey[200],
+                        cursorRadius: const Radius.circular(6),
+                        scrollPhysics: const ClampingScrollPhysics(),
+                      ),
+                    ],
+                  ),
+                ),
+              if (widget.scannedText == "")
+                Text("No text detected..\n",
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                        fontSize: 18, color: Colors.white.withOpacity(0.4))),
 
-            DropdownButtonLang(widget.scannedText),
-            SizedBox(height: 20),
-            TransText(scannedText: widget.scannedText),
-          ],
+              DropdownButtonLang(widget.scannedText),
+              const SizedBox(height: 20),
+              TransText(scannedText: widget.scannedText),
+            ],
+          ),
         ),
       ),
     );

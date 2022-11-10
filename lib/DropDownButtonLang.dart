@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:readaloud_app/translate_page.dart';
-import 'package:translator/translator.dart';
 
 class DropdownButtonLang extends StatefulWidget {
   const DropdownButtonLang(String scannedText, {super.key});
@@ -59,6 +58,9 @@ class _TransTextState extends State<TransText> {
 
   String translated_text = "";
 
+  TextEditingController scannedTextController = TextEditingController();
+  String scnTxt = "";
+
   void translate(String text) async
   {
     await translator.translate(widget.scannedText, from: 'en', to: chosenLang).then((output) {
@@ -79,7 +81,7 @@ class _TransTextState extends State<TransText> {
               elevation: 10,
               backgroundColor: Colors.black,
               padding: const EdgeInsets.all(15),
-              side: BorderSide(width: 1, color: Color.fromRGBO(255, 189, 66, 1)),
+              side: const BorderSide(width: 1, color: Color.fromRGBO(255, 189, 66, 1)),
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
@@ -94,11 +96,11 @@ class _TransTextState extends State<TransText> {
                     fontSize: 18.0)),
           ),
         ),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
 
         Container(
-          height: 100,
-          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+          height: 250,
+          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
           child: ListView(
             children: [
               SelectableText(

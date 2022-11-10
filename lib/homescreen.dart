@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:readaloud_app/DropDownButtonLang.dart';
 import 'package:readaloud_app/provider/sign_in.dart';
 import 'package:readaloud_app/translate_page.dart';
 
@@ -78,7 +77,6 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   // static  TransText txt = TransText(scannedText);
-  static DropdownButtonLang scanTxt = DropdownButtonLang(scannedText);
 
   @override
   Widget build(BuildContext context) {

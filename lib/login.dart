@@ -5,7 +5,6 @@ import 'package:readaloud_app/provider/sign_in.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:readaloud_app/loading.dart';
-import 'package:readaloud_app/provider/sign_in.dart';
 
 
 class LoginApp extends StatefulWidget {
@@ -36,7 +35,6 @@ class _LoginAppState extends State<LoginApp> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
     /*
     init height conf..
