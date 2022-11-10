@@ -257,7 +257,7 @@ class _MainScreenState extends State<MainScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TranslatePage(scannedText: scannedText,),
+                          builder: (context) => TranslatePage(scannedText: scannedText),
                         ),
                       )
                     },

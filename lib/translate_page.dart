@@ -147,8 +147,9 @@ class _TranslatePageState extends State<TranslatePage> {
                     fontSize: 20.0, color: Color.fromRGBO(255, 190, 70, 1))),
             // const SizedBox(height: 20.0),
             if (widget.scannedText != "")
-              SizedBox(
-                height: 150,
+              Container(
+                height: 100,
+                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 child: ListView(
                   children: [
                     SelectableText(
@@ -170,9 +171,9 @@ class _TranslatePageState extends State<TranslatePage> {
                   style: TextStyle(
                       fontSize: 18, color: Colors.white.withOpacity(0.4))),
 
-            const SizedBox(height: 30.0),
-
             DropdownButtonLang(widget.scannedText),
+            SizedBox(height: 20),
+            TransText(scannedText: widget.scannedText),
           ],
         ),
       ),

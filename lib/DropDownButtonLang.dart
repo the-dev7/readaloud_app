@@ -5,9 +5,6 @@ import 'package:translator/translator.dart';
 class DropdownButtonLang extends StatefulWidget {
   const DropdownButtonLang(String scannedText, {super.key});
 
-
-
-
   @override
   State<DropdownButtonLang> createState() => _DropdownButtonLangState();
 }
@@ -15,9 +12,9 @@ class DropdownButtonLang extends StatefulWidget {
 
 class _DropdownButtonLangState extends State<DropdownButtonLang> {
 
-
   String dropdownValue = totalLangs.first;
   String? dropdownLang = langMap[totalLangs.first];
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
@@ -36,6 +33,8 @@ class _DropdownButtonLangState extends State<DropdownButtonLang> {
       onChanged: (String? value) {
         setState(() {
           dropdownValue = value!;
+          chosenLang = langMap[value]!;
+          print(chosenLang);
         });
       },
       items: totalLangs.map<DropdownMenuItem<String>>((String value) {
@@ -49,9 +48,8 @@ class _DropdownButtonLangState extends State<DropdownButtonLang> {
 }
 
 class TransText extends StatefulWidget {
-  const TransText(String scannedText, {super.key});
-
-
+  String scannedText;
+  TransText({super.key, required this.scannedText});
 
   @override
   State<TransText> createState() => _TransTextState();
@@ -59,16 +57,64 @@ class TransText extends StatefulWidget {
 
 class _TransTextState extends State<TransText> {
 
+  String translated_text = "";
+
+  void translate(String text) async
+  {
+    await translator.translate(widget.scannedText, from: 'en', to: chosenLang).then((output) {
+      setState(() {
+        translated_text = output.toString();
+        print(translated_text);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container (
-      color: Colors.black,
-      height: 300,
-      width: 300,
-          //translation = await translator.translate('Translation', from: 'en', to: 'es');
-    // print('${translation.source} (${translation.sourceLanguage}) == ${translation.text} (${translation.targetLanguage})');
+    return Column(
+      children: [
+        Center(
+          child: OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              elevation: 10,
+              backgroundColor: Colors.black,
+              padding: const EdgeInsets.all(15),
+              side: BorderSide(width: 1, color: Color.fromRGBO(255, 189, 66, 1)),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              shadowColor: const Color.fromRGBO(255, 189, 66, 1),
+            ),
+            onPressed: () {
+              translate(widget.scannedText);
+            },
+            child: const Text("Translate",
+                style: TextStyle(
+                    color: Color.fromRGBO(255, 189, 66, 1),
+                    fontSize: 18.0)),
+          ),
+        ),
+        SizedBox(height: 50),
 
+        Container(
+          height: 100,
+          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+          child: ListView(
+            children: [
+              SelectableText(
+                translated_text,
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    fontSize: 20, color: Colors.white.withOpacity(0.6)),
+                showCursor: true,
+                cursorColor: Colors.grey[200],
+                cursorRadius: const Radius.circular(6),
+                scrollPhysics: const ClampingScrollPhysics(),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
