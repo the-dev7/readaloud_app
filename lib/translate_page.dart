@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 import 'DropDownButtonLang.dart';
 
+// available languages
+
 List<String> totalLangs = [
   "Arabic",
   "Bengali",
